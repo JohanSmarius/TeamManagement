@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Core.Domain
 {
-    public class CareTaker
+    public class CareTaker : IPerson
     {
         public string Name { get; set; }
 
-        public string EMailAddress { get; set; }
+        public string EmailAddress { get; set; }
 
         public int PhoneNumber { get; set; }
 

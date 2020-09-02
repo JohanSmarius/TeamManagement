@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 using Xunit.Sdk;
 
@@ -86,6 +87,28 @@ namespace Core.Domain.Tests
             // Assert
             throw new NotSupportedException();
         }
+
+        [Fact]
+        public void Given_People_Should_Calculate_Total_Score()
+        {
+            // Arrange
+            var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), true);
+            game.PeopleInvolved = new List<IPerson>
+            {
+                new Player() { Name = "Agnes", PlayerNumber = 50, TotalScore = 30},
+                new Player() { Name = "Simone", PlayerNumber = 10, TotalScore = 20},
+                new Player() { Name = "Yamila", PlayerNumber = 5, TotalScore = 50},
+                new CareTaker { Name = "Johan", HasCar = true }
+            };
+
+            // Act
+            var totalScore = game.GetTotalScore();
+
+            // Assert
+            Assert.Equal(100, totalScore);
+        }
+
+
 
     }
 }

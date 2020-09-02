@@ -49,12 +49,7 @@ namespace Core.Domain
         /// </summary>
         public Coach Coach { get; set; }
 
-        /// <summary>
-        /// For a given game only 12 players are allowed. The teams has 14 players at this time.
-        /// </summary>
-        public List<Player> Players { get; set; }
-        
-        public List<CareTaker> Drivers { get; set; }
+        public List<IPerson> PeopleInvolved { get; set; }
 
         public CareTaker LaundryDuty { get; set; }
 
@@ -62,6 +57,21 @@ namespace Core.Domain
         {
             IsHomeGame = isHomeGame;
             PlayTime = playTime;
+        }
+
+        public int GetTotalScore()
+        {
+            var totalScore = 0;
+
+            foreach (var person in PeopleInvolved)
+            {
+                if (person is Player player)
+                {
+                    totalScore += player.TotalScore;
+                }
+            }
+
+            return totalScore;
         }
     }
 }
