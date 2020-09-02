@@ -4,6 +4,8 @@ using System.Linq;
 using Core.Domain;
 using Xunit;
 
+using static Infrastructure.FilterExtensions;
+
 namespace Infrastructure.Tests
 {
     public class GameRepositoryTests
@@ -60,6 +62,18 @@ namespace Infrastructure.Tests
             Assert.Equal(2, externalGames.Count());
         }
 
+        [Fact]
+        public void FilterAsExtension_Given_Games_HomeGames_From_Date_Can_Be_Retrieved()
+        {
+            // Arrange
+            var sut = new GameRepository() { Games = CreateGames() };
+
+            // Act
+            var externalGames = sut.Games.FilterGames(g => g.IsHomeGame && g.PlayTime > new DateTime(2020, 10, 07));
+
+            // Assert
+            Assert.Equal(2, externalGames.Count());
+        }
 
 
         private List<Game> CreateGames()
