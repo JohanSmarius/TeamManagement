@@ -10,7 +10,7 @@
 
         public override string ToString()
         {
-            return $"{Name}-{PlayerNumber}";
+            return base.ToString();
         }
     }
 }

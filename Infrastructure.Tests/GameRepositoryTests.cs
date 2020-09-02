@@ -43,7 +43,7 @@ namespace Infrastructure.Tests
             var sut = new GameRepository() {Games = CreateGames()};
 
             // Act
-            var externalGames = sut.Filter(g => !g.IsHomeGame);
+            var externalGames = new List<Game>();
 
             // Assert
             Assert.Equal(3, externalGames.Count());
@@ -56,8 +56,8 @@ namespace Infrastructure.Tests
             var sut = new GameRepository() {Games = CreateGames()};
 
             // Act
-            var externalGames = sut.Filter(g => g.IsHomeGame && g.PlayTime > new DateTime(2020, 10, 07));
-
+            var externalGames = new List<Game>();
+            
             // Assert
             Assert.Equal(2, externalGames.Count());
         }
@@ -69,7 +69,7 @@ namespace Infrastructure.Tests
             var sut = new GameRepository() { Games = CreateGames() };
 
             // Act
-            var externalGames = sut.Games.FilterGames(g => g.IsHomeGame && g.PlayTime > new DateTime(2020, 10, 07));
+            var externalGames = new List<Game>();
 
             // Assert
             Assert.Equal(2, externalGames.Count());
