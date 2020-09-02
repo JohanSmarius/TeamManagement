@@ -7,7 +7,7 @@ namespace Core.Domain.Tests
     public class GameTests
     {
         [Fact]
-        public void TestCoach()
+        public void Given_New_Game_Should_ShowDefault_Name_For_Coach()
         {
             const string EmptyCoach = "Not known";
 
@@ -75,7 +75,7 @@ namespace Core.Domain.Tests
 
 
         [Fact]
-        public void Given_Game_Home_Properyt_Cannot_BeChanged()
+        public void Given_Game_Home_Property_Cannot_BeChanged()
         {
             // Arrange
             var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), true);

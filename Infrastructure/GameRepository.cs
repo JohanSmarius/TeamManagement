@@ -27,6 +27,17 @@ namespace Infrastructure
         {
             return Games.Where(g => !g.IsHomeGame);
         }
-        
+
+        public IEnumerable<Game> Filter(Func<Game, bool> filterExpressie)
+        {
+            foreach (var game in Games)
+            {
+                if (filterExpressie(game))
+                {
+                    yield return game;
+                }
+            }
+        }
+
     }
 }

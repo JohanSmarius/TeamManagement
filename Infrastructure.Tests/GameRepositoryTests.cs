@@ -34,6 +34,33 @@ namespace Infrastructure.Tests
             Assert.Equal(3, externalGames.Count());
         }
 
+        [Fact]
+        public void Filter_Given_Games_ExternalGames_Can_Be_Retrieved()
+        {
+            // Arrange
+            var sut = new GameRepository() {Games = CreateGames()};
+
+            // Act
+            var externalGames = sut.Filter(g => !g.IsHomeGame);
+
+            // Assert
+            Assert.Equal(3, externalGames.Count());
+        }
+        
+        [Fact]
+        public void Filter_Given_Games_HomeGames_From_Date_Can_Be_Retrieved()
+        {
+            // Arrange
+            var sut = new GameRepository() {Games = CreateGames()};
+
+            // Act
+            var externalGames = sut.Filter(g => g.IsHomeGame && g.PlayTime > new DateTime(2020, 10, 07));
+
+            // Assert
+            Assert.Equal(2, externalGames.Count());
+        }
+
+
 
         private List<Game> CreateGames()
         {
