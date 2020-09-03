@@ -78,17 +78,7 @@ namespace Infrastructure.Tests
 
         private List<Game> CreateGames()
         {
-            return new List<Game>
-            {
-                new Game(new DateTime(2020, 10, 01, 12, 00, 00), true),
-                new Game(new DateTime(2020, 10, 02, 12, 00, 00), false),
-                new Game(new DateTime(2020, 10, 03, 12, 00, 00), true),
-                new Game(new DateTime(2020, 10, 04, 12, 00, 00), false),
-                new Game(new DateTime(2020, 10, 05, 12, 00, 00), false),
-                new Game(new DateTime(2020, 10, 06, 12, 00, 00), true),
-                new Game(new DateTime(2020, 10, 07, 12, 00, 00), true),
-                new Game(new DateTime(2020, 10, 08, 12, 00, 00), true),
-            };
+            return new List<Game>();
         }
     }
 }

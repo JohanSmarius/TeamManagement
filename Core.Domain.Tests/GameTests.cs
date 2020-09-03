@@ -7,7 +7,7 @@ namespace Core.Domain.Tests
     public class GameTests
     {
         [Fact]
-        public void Given_New_Game_Should_ShowDefault_Name_For_Coach()
+        public void Given_New_Game_Should_Show_Default_Name_For_Coach()
         {
             const string EmptyCoach = "Not known";
 

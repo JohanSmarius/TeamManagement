@@ -23,17 +23,5 @@ namespace Infrastructure
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<Game> Filter(Func<Game, bool> filterExpressie)
-        {
-            foreach (var game in Games)
-            {
-                if (filterExpressie(game))
-                {
-                    yield return game;
-                }
-            }
-        }
-
     }
 }
