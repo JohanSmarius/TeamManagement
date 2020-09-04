@@ -5,6 +5,8 @@ namespace Core.Domain
 {
     public class Game
     {
+        public int Id { get; set; }
+
         /// <summary>
         /// The starting time of the time (includes the date of the game)
         /// The playtime can be considered to be the identifying attribute for this class.
@@ -12,14 +14,14 @@ namespace Core.Domain
         /// </summary>
         public DateTime PlayTime { get; set; }
 
-        private DateTime _departureTime;
+        private DateTime? _departureTime;
         
         /// <summary>
         /// Only necessary for not home games.
         /// Only the time part is relevant. The date part should always be
         /// the same as the playtime.
         /// </summary>
-        public DateTime DepartureTime 
+        public DateTime? DepartureTime 
         {
             get 
             {
@@ -57,6 +59,8 @@ namespace Core.Domain
         public List<CareTaker> Drivers { get; set; }
 
         public CareTaker LaundryDuty { get; set; }
+
+        public Opponent Opponent { get; set; }
 
         public Game(DateTime playTime, bool isHomeGame)
         {
