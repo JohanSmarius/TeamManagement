@@ -9,23 +9,26 @@ namespace Core.Domain.Tests
         [Fact]
         public void Given_New_Game_Should_Show_Default_Name_For_Coach()
         {
-            const string EmptyCoach = "Not known";
+            const string emptyCoach = "Not known";
 
             // Arrange
             var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), false);
 
             // Act
-            var coach = game.Coach.Name;
+            var coach = game.Coach?.Name ?? emptyCoach;
 
             // Assert
-            Assert.True(string.CompareOrdinal(coach, EmptyCoach) == 0);
+            Assert.True(string.CompareOrdinal(coach, emptyCoach) == 0);
         }
 
         [Fact]
         public void Given_Coach_AssignedToGame_Should_Return_Coach_Name()
         {
             // Arrange
-            var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), false);
+            var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), false)
+            {
+                Coach = new Coach { Name = "Tim" }
+            };;
 
             // Act
             var coach = game.Coach.Name;
@@ -68,20 +71,6 @@ namespace Core.Domain.Tests
 
             // Assert
             Assert.True(exceptionHasBeenThrown);
-        }
-
-
-        [Fact]
-        public void Given_Game_Home_Property_Cannot_BeChanged()
-        {
-            // Arrange
-            var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), true);
-
-            // Act
-            game.IsHomeGame = false;
-
-            // Assert
-            throw new NotSupportedException();
         }
 
     }

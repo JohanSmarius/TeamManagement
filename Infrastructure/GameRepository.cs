@@ -16,12 +16,27 @@ namespace Infrastructure
 
         public IEnumerable<Game> GetAllHomeGames()
         {
-            throw new NotImplementedException();
+               var games = from game in Games
+                where game.IsHomeGame
+                select game;
+
+            return games.ToList();
         }
 
         public IEnumerable<Game> GetAllExternalGames()
         {
-            throw new NotImplementedException();
+            return Games.Where(g => !g.IsHomeGame);
+        }
+
+        public IEnumerable<Game> Filter(Func<Game, bool> filterExpressie)
+        {
+            foreach (var game in Games)
+            {
+                if (filterExpressie(game))
+                {
+                    yield return game;
+                }
+            }
         }
     }
 }
