@@ -3,7 +3,7 @@
 <tr>
     <td>@($"{@Model.PlayTime:dd-MM-yyyy HH:mm}")</td>
     <td>@($"{@Model.DepartureTime:HH:mm}")</td>
-    <td>@Model.IsHomeGame</td>
+    <td><input asp-for="@Model.IsHomeGame"disabled="disabled" /></td>
     <td>@(Model.Coach?.Name ?? "Coach missing")</td>
     <td>@(Model.LaundryDuty?.Name ?? "LaundryDuty missing")</td>
     <td>@Model.Drivers</td>
