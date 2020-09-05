@@ -51,15 +51,19 @@ namespace Portal.Controllers
         {
             var model = new NewGameViewModel();
 
-            var coaches = _coachRepository.GetCoaches().Prepend(new Coach() {Id = -1, Name = "Select a coach"});
-            model.Coaches = new SelectList(coaches, "Id", "Name");
-
-            var careTakers = _playerRepository.GetPlayers().SelectMany(p => p.CareTakers).
-                Prepend(new CareTaker { Id = -1, Name = "Select a caretaker" });
-
-            model.CareTakers = new SelectList(careTakers, "Id", "Name");
+            PrefillSelectOptions();
 
             return View(model);
+        }
+
+        private void PrefillSelectOptions()
+        {
+            var coaches = _coachRepository.GetCoaches().Prepend(new Coach() {Id = -1, Name = "Select a coach"});
+            ViewBag.Coaches = new SelectList(coaches, "Id", "Name");
+
+            var careTakers = _playerRepository.GetPlayers().SelectMany(p => p.CareTakers)
+                .Prepend(new CareTaker {Id = -1, Name = "Select a caretaker"});
+            ViewBag.CareTakers = new SelectList(careTakers, "Id", "Name");
         }
 
         [HttpPost]
@@ -67,6 +71,14 @@ namespace Portal.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (newGame.IsHomeGame && newGame.DepartureTime.HasValue)
+                {
+                    ModelState.AddModelError("DepartureTime", "Vertrektijd mag niet op worden gegeven bij een thuiswedstrijd");
+
+                    PrefillSelectOptions();
+                    return View();
+                }
+
                 var gameToCreate = new Game(newGame.PlayTime, newGame.IsHomeGame);
 
                 if (newGame.CoachId != -1)

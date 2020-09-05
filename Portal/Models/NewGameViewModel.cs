@@ -14,13 +14,7 @@ namespace Portal.Models
         public bool IsHomeGame { get; set; }
 
         public int CoachId { get; set; }
-       // public Coach Coach { get; set; }
 
         public int LaundryDutyId { get; set; }
-        //public CareTaker CareTaker { get; set; }
-
-        public SelectList Coaches { get; set; }
-
-        public SelectList CareTakers { get; set; }
     }
 }
