@@ -7,6 +7,8 @@ namespace Core.Domain
 {
     public class CareTaker
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string EMailAddress { get; set; }

@@ -10,7 +10,7 @@ namespace Core.Domain
 
         public string EmailAddress { get; set; }
 
-        public List<CareTaker> CareTakers { get; set; }
+        public List<CareTaker> CareTakers { get; set; } = new List<CareTaker>();
 
         public override string ToString()
         {

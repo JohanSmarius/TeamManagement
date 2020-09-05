@@ -25,6 +25,9 @@ namespace Portal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<GameRepository>();
+            services.AddSingleton<CoachRepository>();
+            services.AddSingleton<PlayerRepository>();
+
             services.AddControllersWithViews();
         }
 
