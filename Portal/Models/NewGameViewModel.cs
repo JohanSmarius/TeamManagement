@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Core.Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -16,5 +17,8 @@ namespace Portal.Models
         public int CoachId { get; set; }
 
         public int LaundryDutyId { get; set; }
+
+        [Required]
+        public string Opponent { get; set; }
     }
 }

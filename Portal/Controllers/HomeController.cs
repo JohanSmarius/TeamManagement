@@ -69,16 +69,14 @@ namespace Portal.Controllers
         [HttpPost]
         public IActionResult NewGame(NewGameViewModel newGame)
         {
+            if (newGame.IsHomeGame && newGame.DepartureTime.HasValue)
+            {
+                ModelState.AddModelError(nameof(newGame.DepartureTime),
+                    "Vertrektijd mag niet op worden gegeven bij een thuiswedstrijd");
+            }
+
             if (ModelState.IsValid)
             {
-                if (newGame.IsHomeGame && newGame.DepartureTime.HasValue)
-                {
-                    ModelState.AddModelError("DepartureTime", "Vertrektijd mag niet op worden gegeven bij een thuiswedstrijd");
-
-                    PrefillSelectOptions();
-                    return View();
-                }
-
                 var gameToCreate = new Game(newGame.PlayTime, newGame.IsHomeGame);
 
                 if (newGame.CoachId != -1)
@@ -95,12 +93,17 @@ namespace Portal.Controllers
                     gameToCreate.LaundryDuty = selectedCareTakerForLaundryDuty;
                 }
 
+                gameToCreate.Opponent = new Opponent() {Name = newGame.Opponent};
+
                 _gameRepository.Games.Add(gameToCreate);
 
                 return RedirectToAction("Index");
             }
-            
-            return View();
+
+            PrefillSelectOptions();
+
+            return View(newGame);
+
         }
     }
 }
