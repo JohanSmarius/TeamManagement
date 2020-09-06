@@ -1,5 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Planning";
+    Layout = "_TwoColumLayout";
 
 }
 
+@model List<GamesViewModel>
+
+<div>
+
+    <a asp-action="NewGame" class="btn btn-primary">Add Game</a>
+
+    <table class="table table-striped">
+        <thead>
+        <th>Playtime</th>
+        <th>DepartureTime</th>
+        <th>Homegame</th>
+        <th>Coach</th>
+        <th>Washduty</th>
+        <th>Drivers</th>
+        <th>Opponent</th>
+        </thead>
+        <tbody>
+            @foreach (var game in Model)
+            {
+                <partial model="game" name="_GameRow" />
+            }
+
+        </tbody>
+
+    </table>
+</div>
