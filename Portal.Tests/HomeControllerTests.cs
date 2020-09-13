@@ -213,5 +213,50 @@ namespace Portal.Tests
             Assert.Equal(0, coach.Id );
             Assert.Equal("Bill Gates", coach.Name);
         }
+
+        [Fact]
+        public void NewGame_Given_Departure_Time_For_Home_Game_Should_Return_ModelError()
+        {
+            // Arrange
+            var loggerMock = new Mock<ILogger<HomeController>>();
+            var gameRepoMock = new Mock<IGameRepository>();
+            var coachRepoMock = new Mock<ICoachRepository>();
+            var playerRepoMock = new Mock<IPlayerRepository>();
+            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+                playerRepoMock.Object);
+
+            coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
+            {
+                new Coach() { Id = 0, Name = "Bill Gates" }
+            });
+
+            playerRepoMock.Setup(playerRepo => playerRepo.GetPlayers()).Returns(new List<Player>()
+            {
+                new Player { Name = "Player3", PlayerNumber = 3, CareTakers = new List<CareTaker>()
+                {
+                    new CareTaker { Id = 1, Name = "Parent1Player3", HasCar = true}
+                }}
+            });
+
+
+            // Act
+            var newGameModel = new NewGameViewModel()
+            {
+                IsHomeGame = true,
+                DepartureTime = DateTime.Now
+            };
+
+            var result = sut.NewGame(newGameModel);
+
+            // Assert
+            var viewResult = result as ViewResult;
+
+            Assert.False(viewResult.ViewData.ModelState.IsValid);
+            Assert.True(viewResult.ViewData.ModelState.ContainsKey(nameof(newGameModel.DepartureTime)));
+            var key = nameof(newGameModel.DepartureTime);
+            Assert.Equal("Vertrektijd mag niet op worden gegeven bij een thuiswedstrijd", 
+                viewResult.ViewData.ModelState[key].Errors.First().ErrorMessage);
+        }
+
     }
 }
