@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.DomainServices;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,9 +25,9 @@ namespace Portal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<GameRepository>();
-            services.AddSingleton<CoachRepository>();
-            services.AddSingleton<PlayerRepository>();
+            services.AddSingleton<IGameRepository, GameRepository>();
+            services.AddSingleton<ICoachRepository, CoachRepository>();
+            services.AddSingleton<IPlayerRepository, PlayerRepository>();
 
             services.AddControllersWithViews();
         }

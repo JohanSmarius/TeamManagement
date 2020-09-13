@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Domain;
+using Core.DomainServices;
 
 namespace Infrastructure
 {
-    public class CoachRepository
+    public class CoachRepository : ICoachRepository
     {
         private List<Coach> _coaches = new List<Coach>()
         {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain;
+using Core.DomainServices;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,14 +16,14 @@ namespace Portal.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly GameRepository _gameRepository;
-        private readonly CoachRepository _coachRepository;
-        private readonly PlayerRepository _playerRepository;
+        private readonly IGameRepository _gameRepository;
+        private readonly ICoachRepository _coachRepository;
+        private readonly IPlayerRepository _playerRepository;
 
         public HomeController(ILogger<HomeController> logger, 
-            GameRepository gameRepository, 
-            CoachRepository coachRepository, 
-            PlayerRepository playerRepository)
+            IGameRepository gameRepository, 
+            ICoachRepository coachRepository, 
+            IPlayerRepository playerRepository)
         {
             _logger = logger;
             _gameRepository = gameRepository;

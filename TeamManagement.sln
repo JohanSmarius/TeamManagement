@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal", "Portal\Portal.csproj", "{EA59CB92-A258-4039-87F8-D937FD7F43E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "Portal\Portal.csproj", "{EA59CB92-A258-4039-87F8-D937FD7F43E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Domain", "Core.Domain\Core.Domain.csproj", "{5857495C-2598-43BB-AA2D-E21B1EE38150}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Domain", "Core.Domain\Core.Domain.csproj", "{5857495C-2598-43BB-AA2D-E21B1EE38150}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Domain.Tests", "Core.Domain.Tests\Core.Domain.Tests.csproj", "{1B21AA14-9F7A-4308-8F5A-CF09692CF4AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Domain.Tests", "Core.Domain.Tests\Core.Domain.Tests.csproj", "{1B21AA14-9F7A-4308-8F5A-CF09692CF4AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{131B461A-7F6A-41AA-A2E4-31701395FAD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{131B461A-7F6A-41AA-A2E4-31701395FAD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests", "Infrastructure.Tests\Infrastructure.Tests.csproj", "{2F287884-8988-4D90-A0B7-8D4EA582AFD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Tests", "Infrastructure.Tests\Infrastructure.Tests.csproj", "{2F287884-8988-4D90-A0B7-8D4EA582AFD1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.DomainServices", "Core.DomainServices\Core.DomainServices.csproj", "{BEADC418-2E29-478E-97B5-400C452F99E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Tests", "Portal.Tests\Portal.Tests.csproj", "{E5497D47-D70E-47F1-AB99-EF3284E03417}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{2F287884-8988-4D90-A0B7-8D4EA582AFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F287884-8988-4D90-A0B7-8D4EA582AFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F287884-8988-4D90-A0B7-8D4EA582AFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEADC418-2E29-478E-97B5-400C452F99E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEADC418-2E29-478E-97B5-400C452F99E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEADC418-2E29-478E-97B5-400C452F99E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEADC418-2E29-478E-97B5-400C452F99E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5497D47-D70E-47F1-AB99-EF3284E03417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5497D47-D70E-47F1-AB99-EF3284E03417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5497D47-D70E-47F1-AB99-EF3284E03417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5497D47-D70E-47F1-AB99-EF3284E03417}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
