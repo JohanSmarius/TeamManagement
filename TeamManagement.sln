@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Tests", "Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.DomainServices", "Core.DomainServices\Core.DomainServices.csproj", "{BEADC418-2E29-478E-97B5-400C452F99E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Tests", "Portal.Tests\Portal.Tests.csproj", "{E5497D47-D70E-47F1-AB99-EF3284E03417}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal.Tests", "Portal.Tests\Portal.Tests.csproj", "{E5497D47-D70E-47F1-AB99-EF3284E03417}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
