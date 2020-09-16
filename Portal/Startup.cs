@@ -7,6 +7,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,15 +26,18 @@ namespace Portal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<GameDbContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("Default")));
+            
             services.AddSingleton<IGameRepository, GameRepository>();
-            services.AddSingleton<ICoachRepository, CoachRepository>();
-            services.AddSingleton<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<ICoachRepository, CoachRepository>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
 
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GameRepository gameRepository)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -58,9 +62,6 @@ namespace Portal
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            gameRepository.Games = GameSeeder.SeedGames();
-
         }
     }
 }

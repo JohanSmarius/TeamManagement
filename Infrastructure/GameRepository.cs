@@ -8,6 +8,11 @@ namespace Infrastructure
 {
     public class GameRepository : IGameRepository
     {
+        public GameRepository()
+        {
+            Games = GameSeeder.SeedGames();
+        }
+
         public List<Game> Games { get; set; }
 
         public IEnumerable<Game> GetAll()

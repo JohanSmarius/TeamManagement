@@ -7,20 +7,22 @@ namespace Infrastructure
 {
     public class CoachRepository : ICoachRepository
     {
-        private List<Coach> _coaches = new List<Coach>()
+        private readonly GameDbContext _context;
+
+        public CoachRepository(GameDbContext context)
         {
-            new Coach() { Id = 1, Name = "Tim" }, new Coach() { Id = 2, Name = "Iris" }
-        };
+            _context = context;
+        }
 
 
         public IEnumerable<Coach> GetCoaches()
         {
-            return _coaches;
+            return _context.Coaches.ToList();
         }
 
         public Coach GetById(int id)
         {
-            return _coaches.SingleOrDefault(coach => coach.Id == id);
+            return _context.Coaches.SingleOrDefault(coach => coach.Id == id);
         }
     }
 }
