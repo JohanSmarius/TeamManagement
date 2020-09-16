@@ -39,5 +39,10 @@ namespace Infrastructure
                 }
             }
         }
+
+        public void AddGame(Game newGame)
+        {
+            Games.Add(newGame);
+        }
     }
 }

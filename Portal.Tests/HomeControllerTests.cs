@@ -5,6 +5,7 @@ using System.Linq;
 using Core.Domain;
 using Core.DomainServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -257,6 +258,45 @@ namespace Portal.Tests
             Assert.Equal("Vertrektijd mag niet op worden gegeven bij een thuiswedstrijd", 
                 viewResult.ViewData.ModelState[key].Errors.First().ErrorMessage);
         }
+        
+        [Fact]
+        public void NewGame_Given_Empty_Opppenent_Should_Not_Save_Game()
+        {
+            // Arrange
+            var loggerMock = new Mock<ILogger<HomeController>>();
+            var gameRepoMock = new Mock<IGameRepository>();
+            var coachRepoMock = new Mock<ICoachRepository>();
+            var playerRepoMock = new Mock<IPlayerRepository>();
+            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+                playerRepoMock.Object);
+            
+            coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
+            {
+                new Coach() { Id = 0, Name = "Bill Gates" }
+            });
+
+            playerRepoMock.Setup(playerRepo => playerRepo.GetPlayers()).Returns(new List<Player>()
+            {
+                new Player { Name = "Player3", PlayerNumber = 3, CareTakers = new List<CareTaker>()
+                {
+                    new CareTaker { Id = 1, Name = "Parent1Player3", HasCar = true}
+                }}
+            });
+            
+            var newGameModel = new NewGameViewModel()
+            {
+                IsHomeGame = false,
+                DepartureTime = DateTime.Now
+            };
+
+            // Act
+            sut.ModelState.AddModelError("Opponent", "Opponent cannot be empty");
+            sut.NewGame(newGameModel);
+
+            // Assert
+            gameRepoMock.Verify(gameRepoMock => gameRepoMock.AddGame(It.IsAny<Game>()), Times.Never);
+        }
+
 
     }
 }

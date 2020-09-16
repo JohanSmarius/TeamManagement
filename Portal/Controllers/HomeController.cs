@@ -96,7 +96,7 @@ namespace Portal.Controllers
 
                 gameToCreate.Opponent = new Opponent() {Name = newGame.Opponent};
 
-                _gameRepository.Games.Add(gameToCreate);
+                _gameRepository.AddGame(gameToCreate);
 
                 return RedirectToAction("Index");
             }

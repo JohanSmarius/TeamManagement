@@ -11,5 +11,6 @@ namespace Core.DomainServices
         IEnumerable<Game> GetAllHomeGames();
         IEnumerable<Game> GetAllExternalGames();
         IEnumerable<Game> Filter(Func<Game, bool> filterExpressie);
+        void AddGame(Game newGame);
     }
 }
