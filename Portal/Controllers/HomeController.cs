@@ -19,21 +19,24 @@ namespace Portal.Controllers
         private readonly IGameRepository _gameRepository;
         private readonly ICoachRepository _coachRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IOpponentRepository _opponentRepository;
 
         public HomeController(ILogger<HomeController> logger, 
             IGameRepository gameRepository, 
             ICoachRepository coachRepository, 
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            IOpponentRepository opponentRepository)
         {
             _logger = logger;
             _gameRepository = gameRepository;
             _coachRepository = coachRepository;
             _playerRepository = playerRepository;
+            _opponentRepository = opponentRepository ?? throw new ArgumentNullException(nameof(opponentRepository));
         }
 
         public IActionResult Index()
         {
-            return View(_gameRepository.Games.ToViewModel());
+            return View(_gameRepository.GetAll().ToViewModel());
         }
 
         public IActionResult Privacy()
@@ -68,7 +71,7 @@ namespace Portal.Controllers
         }
 
         [HttpPost]
-        public IActionResult NewGame(NewGameViewModel newGame)
+        public async Task<IActionResult> NewGame(NewGameViewModel newGame)
         {
             if (newGame.IsHomeGame && newGame.DepartureTime.HasValue)
             {
@@ -94,9 +97,17 @@ namespace Portal.Controllers
                     gameToCreate.LaundryDuty = selectedCareTakerForLaundryDuty;
                 }
 
-                gameToCreate.Opponent = new Opponent() {Name = newGame.Opponent};
+                var opponentInDbntInDb = _opponentRepository.Get(newGame.Opponent);
+                if (opponentInDbntInDb != null)
+                {
+                    gameToCreate.OpponentId = opponentInDbntInDb.Id;
+                }
+                else
+                {
+                    gameToCreate.Opponent = new Opponent() { Name = newGame.Opponent };
+                }
 
-                _gameRepository.AddGame(gameToCreate);
+                await _gameRepository.AddGame(gameToCreate);
 
                 return RedirectToAction("Index");
             }

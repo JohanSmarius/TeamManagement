@@ -29,9 +29,10 @@ namespace Portal
             services.AddDbContext<GameDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("Default")));
             
-            services.AddSingleton<IGameRepository, GameRepository>();
+            services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IOpponentRepository, OpponentRepository>();
 
             services.AddControllersWithViews();
         }

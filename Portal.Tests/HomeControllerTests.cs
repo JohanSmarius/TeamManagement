@@ -25,10 +25,12 @@ namespace Portal.Tests
             var gameRepoMock = new Mock<IGameRepository>();
             var coachRepoMock = new Mock<ICoachRepository>();
             var playerRepoMock = new Mock<IPlayerRepository>();
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
-                playerRepoMock.Object);
+            var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            gameRepoMock.Setup(gameRepo => gameRepo.Games).Returns(new List<Game>()
+            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+                playerRepoMock.Object, opponentRepoMock.Object);
+
+            gameRepoMock.Setup(gameRepo => gameRepo.GetAll()).Returns(new List<Game>()
             {
                 new Game(DateTime.Today, true),
                 new Game(DateTime.Today.AddDays(7), false)
@@ -51,12 +53,14 @@ namespace Portal.Tests
             var gameRepoMock = new Mock<IGameRepository>();
             var coachRepoMock = new Mock<ICoachRepository>();
             var playerRepoMock = new Mock<IPlayerRepository>();
+            var opponentRepoMock = new Mock<IOpponentRepository>();
+
             var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
-                playerRepoMock.Object);
+                playerRepoMock.Object, opponentRepoMock.Object);
 
             var date1 = DateTime.Today;
             var date2 = DateTime.Today.AddDays(7);
-            gameRepoMock.Setup(gameRepo => gameRepo.Games).Returns(new List<Game>()
+            gameRepoMock.Setup(gameRepo => gameRepo.GetAll()).Returns(new List<Game>()
             {
                 new Game(date1, true),
                 new Game(date2, false)
@@ -80,8 +84,10 @@ namespace Portal.Tests
             var gameRepoMock = new Mock<IGameRepository>();
             var coachRepoMock = new Mock<ICoachRepository>();
             var playerRepoMock = new Mock<IPlayerRepository>();
+            var opponentRepoMock = new Mock<IOpponentRepository>();
+
             var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
-                playerRepoMock.Object);
+                playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
             {
@@ -114,8 +120,10 @@ namespace Portal.Tests
             var gameRepoMock = new Mock<IGameRepository>();
             var coachRepoMock = new Mock<ICoachRepository>();
             var playerRepoMock = new Mock<IPlayerRepository>();
+            var opponentRepoMock = new Mock<IOpponentRepository>();
+
             var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
-                playerRepoMock.Object);
+                playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
             {
@@ -149,8 +157,10 @@ namespace Portal.Tests
             var gameRepoMock = new Mock<IGameRepository>();
             var coachRepoMock = new Mock<ICoachRepository>();
             var playerRepoMock = new Mock<IPlayerRepository>();
+            var opponentRepoMock = new Mock<IOpponentRepository>();
+
             var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
-                playerRepoMock.Object);
+                playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
             {
@@ -186,8 +196,10 @@ namespace Portal.Tests
             var gameRepoMock = new Mock<IGameRepository>();
             var coachRepoMock = new Mock<ICoachRepository>();
             var playerRepoMock = new Mock<IPlayerRepository>();
+            var opponentRepoMock = new Mock<IOpponentRepository>();
+
             var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
-                playerRepoMock.Object);
+                playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
             {
@@ -223,8 +235,10 @@ namespace Portal.Tests
             var gameRepoMock = new Mock<IGameRepository>();
             var coachRepoMock = new Mock<ICoachRepository>();
             var playerRepoMock = new Mock<IPlayerRepository>();
+            var opponentRepoMock = new Mock<IOpponentRepository>();
+
             var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
-                playerRepoMock.Object);
+                playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
             {
@@ -267,9 +281,11 @@ namespace Portal.Tests
             var gameRepoMock = new Mock<IGameRepository>();
             var coachRepoMock = new Mock<ICoachRepository>();
             var playerRepoMock = new Mock<IPlayerRepository>();
+            var opponentRepoMock = new Mock<IOpponentRepository>();
+
             var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
-                playerRepoMock.Object);
-            
+                playerRepoMock.Object, opponentRepoMock.Object);
+
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
             {
                 new Coach() { Id = 0, Name = "Bill Gates" }

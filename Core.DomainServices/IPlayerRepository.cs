@@ -5,6 +5,6 @@ namespace Core.DomainServices
 {
     public interface IPlayerRepository
     {
-        List<Player> GetPlayers();
+        IEnumerable<Player> GetPlayers();
     }
 }

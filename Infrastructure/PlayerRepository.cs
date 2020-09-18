@@ -6,9 +6,16 @@ namespace Infrastructure
 {
     public class PlayerRepository : IPlayerRepository
     {
-        public List<Player> GetPlayers()
+        private readonly GameDbContext _context;
+
+        public PlayerRepository(GameDbContext context)
         {
-            return PlayerSeeder.SeedPlayers();
+            _context = context;
+        }
+
+        public IEnumerable<Player> GetPlayers()
+        {
+            return _context.Players;
         }
     }
 }

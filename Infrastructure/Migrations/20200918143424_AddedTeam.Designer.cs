@@ -4,14 +4,16 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    partial class GameDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200918143424_AddedTeam")]
+    partial class AddedTeam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +55,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("CareTakers");
+                    b.ToTable("CareTaker");
                 });
 
             modelBuilder.Entity("Core.Domain.Coach", b =>
@@ -95,9 +97,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime?>("DepartureTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsHomeGame")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("LaundryDutyId")
                         .HasColumnType("int");
@@ -148,6 +147,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("GameId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -159,54 +161,11 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GameId");
+
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Agnes",
-                            PlayerNumber = 1,
-                            TeamId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Linda",
-                            PlayerNumber = 2,
-                            TeamId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Debbie",
-                            PlayerNumber = 3,
-                            TeamId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Sena",
-                            PlayerNumber = 4,
-                            TeamId = 1
-                        });
-                });
-
-            modelBuilder.Entity("Core.Domain.PlayerGame", b =>
-                {
-                    b.Property<int>("PlayerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GameID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayerID", "GameID");
-
-                    b.HasIndex("GameID");
-
-                    b.ToTable("PlayerGames");
                 });
 
             modelBuilder.Entity("Core.Domain.Team", b =>
@@ -221,14 +180,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teams");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "VU16"
-                        });
+                    b.ToTable("Team");
                 });
 
             modelBuilder.Entity("Core.Domain.CareTaker", b =>
@@ -286,24 +238,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Domain.Player", b =>
                 {
+                    b.HasOne("Core.Domain.Game", null)
+                        .WithMany("Players")
+                        .HasForeignKey("GameId");
+
                     b.HasOne("Core.Domain.Team", "Team")
                         .WithMany("Players")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Core.Domain.PlayerGame", b =>
-                {
-                    b.HasOne("Core.Domain.Game", "Game")
-                        .WithMany("PlayerGames")
-                        .HasForeignKey("GameID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Domain.Player", "Player")
-                        .WithMany("PlayerGames")
-                        .HasForeignKey("PlayerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

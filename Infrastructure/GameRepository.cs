@@ -1,28 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
     public class GameRepository : IGameRepository
     {
-        public GameRepository()
+        private readonly GameDbContext _context;
+
+        public GameRepository(GameDbContext context)
         {
-            Games = GameSeeder.SeedGames();
+            _context = context;
         }
 
-        public List<Game> Games { get; set; }
+        public GameRepository()
+        {
+            
+        }
+
+        //public List<Game> Games { get; set; }
 
         public IEnumerable<Game> GetAll()
         {
-            return Games;
+            return _context.Games.Include(g => g.Coach).Include(g => g.Opponent);
         }
 
         public IEnumerable<Game> GetAllHomeGames()
         {
-               var games = from game in Games
+               var games = from game in _context.Games
                 where game.IsHomeGame
                 select game;
 
@@ -31,12 +40,12 @@ namespace Infrastructure
 
         public IEnumerable<Game> GetAllExternalGames()
         {
-            return Games.Where(g => !g.IsHomeGame);
+            return _context.Games.Where(g => !g.IsHomeGame);
         }
 
         public IEnumerable<Game> Filter(Func<Game, bool> filterExpressie)
         {
-            foreach (var game in Games)
+            foreach (var game in _context.Games)
             {
                 if (filterExpressie(game))
                 {
@@ -45,9 +54,10 @@ namespace Infrastructure
             }
         }
 
-        public void AddGame(Game newGame)
+        public async Task AddGame(Game newGame)
         {
-            Games.Add(newGame);
+            _context.Games.Add(newGame);
+            await _context.SaveChangesAsync();
         }
     }
 }

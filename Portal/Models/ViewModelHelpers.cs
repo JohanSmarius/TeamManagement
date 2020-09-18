@@ -8,7 +8,7 @@ namespace Portal.Models
 {
     public static class ViewModelHelpers
     {
-        public static List<GamesViewModel> ToViewModel(this List<Game> games)
+        public static List<GamesViewModel> ToViewModel(this IEnumerable<Game> games)
         {
             var result = new List<GamesViewModel>();
 
@@ -38,7 +38,7 @@ namespace Portal.Models
 
                 for (var i = 0; i < game.Drivers.Count; i++)
                 {
-                    stringToBuild.Append(game.Drivers[i].Name);
+                    stringToBuild.Append(game.Drivers.ElementAt(i).Name);
 
                     // Put a ; between the drivers
                     if (i < game.Drivers.Count - 1)

@@ -17,7 +17,7 @@ namespace Infrastructure
 
         public IEnumerable<Coach> GetCoaches()
         {
-            return _context.Coaches.ToList();
+            return _context.Coaches;
         }
 
         public Coach GetById(int id)

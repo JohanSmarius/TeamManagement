@@ -43,7 +43,7 @@ namespace Core.Domain
         /// <summary>
         /// Home game?
         /// </summary>
-        public bool IsHomeGame { get;  }
+        public bool IsHomeGame { get; set; }
 
         /// <summary>
         /// The primary coach for the game. Other coaches may assist,
@@ -51,16 +51,20 @@ namespace Core.Domain
         /// </summary>
         public Coach Coach { get; set; }
 
+        public int? CoachId { get; set; }
+
         /// <summary>
         /// For a given game only 12 players are allowed. The teams has 14 players at this time.
         /// </summary>
-        public List<Player> Players { get; set; }
+        public ICollection<PlayerGame> PlayerGames { get; set; }
         
-        public List<CareTaker> Drivers { get; set; }
+        public ICollection<CareTaker> Drivers { get; set; }
 
         public CareTaker LaundryDuty { get; set; }
+        public int? LaundryDutyId { get; set; }
 
         public Opponent Opponent { get; set; }
+        public int? OpponentId { get; set; }
 
         public Game(DateTime playTime, bool isHomeGame)
         {
