@@ -97,24 +97,7 @@ namespace Portal.Controllers
                     gameToCreate.LaundryDuty = selectedCareTakerForLaundryDuty;
                 }
 
-                var opponentInDbntInDb = _opponentRepository.Get(newGame.Opponent);
-                if (opponentInDbntInDb != null)
-                {
-                    gameToCreate.OpponentId = opponentInDbntInDb.Id;
-                }
-                else
-                {
-                    gameToCreate.Opponent = new Opponent() { Name = newGame.Opponent };
-                }
-
-                gameToCreate.PlayerGames = new List<PlayerGame>();
-                foreach (var player in _playerRepository.GetPlayers())
-                {
-                    gameToCreate.PlayerGames.Add(new PlayerGame() { Game = gameToCreate, Player = player });
-                }
-
                 await _gameRepository.AddGame(gameToCreate);
-
 
                 return RedirectToAction("Index");
             }

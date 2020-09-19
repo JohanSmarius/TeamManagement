@@ -6,9 +6,6 @@ namespace Core.DomainServices
 {
     public interface IOpponentRepository
     {
-        IEnumerable<Opponent> GetAll();
-        Opponent Get(int id);
-        Opponent Get(string name);
-        Task AddAsync(Opponent opponent);
+  
     }
 }

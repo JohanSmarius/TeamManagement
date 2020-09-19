@@ -9,7 +9,7 @@ namespace Portal.Models
 {
     public static class ViewModelHelpers
     {
-        public static IEnumerable<GamesViewModel> ToViewModel(this IEnumerable<Game> games)
+        public static List<GamesViewModel> ToViewModel(this IEnumerable<Game> games)
         {
             var result = new List<GamesViewModel>();
 

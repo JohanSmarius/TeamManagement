@@ -11,6 +11,7 @@ namespace Infrastructure
     public class GameRepository : IGameRepository
     {
         private readonly GameDbContext _context;
+        private List<Game> Games { get; set; }
 
         public GameRepository(GameDbContext context)
         {
@@ -26,12 +27,12 @@ namespace Infrastructure
 
         public IEnumerable<Game> GetAll()
         {
-            return _context.Games.Include(g => g.Coach).Include(g => g.Opponent).Include(g => g.PlayerGames).ThenInclude(pg => pg.Player).ThenInclude(p => p.CareTakers);
+            return Games;
         }
 
         public IEnumerable<Game> GetAllHomeGames()
         {
-               var games = from game in _context.Games
+               var games = from game in Games
                 where game.IsHomeGame
                 select game;
 
@@ -40,12 +41,12 @@ namespace Infrastructure
 
         public IEnumerable<Game> GetAllExternalGames()
         {
-            return _context.Games.Where(g => !g.IsHomeGame);
+            return Games.Where(g => !g.IsHomeGame);
         }
 
         public IEnumerable<Game> Filter(Func<Game, bool> filterExpressie)
         {
-            foreach (var game in _context.Games)
+            foreach (var game in Games)
             {
                 if (filterExpressie(game))
                 {
@@ -56,8 +57,8 @@ namespace Infrastructure
 
         public async Task AddGame(Game newGame)
         {
-            _context.Games.Add(newGame);
-            await _context.SaveChangesAsync();
+            Games.Add(newGame);
+            //await _context.SaveChangesAsync();
         }
     }
 }
