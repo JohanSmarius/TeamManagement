@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Domain;
 using Core.DomainServices;
 using Microsoft.AspNetCore.Mvc;
@@ -228,7 +229,7 @@ namespace Portal.Tests
         }
 
         [Fact]
-        public void NewGame_Given_Departure_Time_For_Home_Game_Should_Return_ModelError()
+        public async Task NewGame_Given_Departure_Time_For_Home_Game_Should_Return_ModelError()
         {
             // Arrange
             var loggerMock = new Mock<ILogger<HomeController>>();
@@ -261,7 +262,7 @@ namespace Portal.Tests
                 DepartureTime = DateTime.Now
             };
 
-            var result = sut.NewGame(newGameModel);
+            var result = await sut.NewGame(newGameModel);
 
             // Assert
             var viewResult = result as ViewResult;

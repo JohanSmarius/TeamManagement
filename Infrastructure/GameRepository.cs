@@ -26,7 +26,7 @@ namespace Infrastructure
 
         public IEnumerable<Game> GetAll()
         {
-            return _context.Games.Include(g => g.Coach).Include(g => g.Opponent);
+            return _context.Games.Include(g => g.Coach).Include(g => g.Opponent).Include(g => g.PlayerGames).ThenInclude(pg => pg.Player).ThenInclude(p => p.CareTakers);
         }
 
         public IEnumerable<Game> GetAllHomeGames()
