@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Text;
 using Core.Domain;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.Extensions.Primitives;
 
 namespace Portal.Models
 {
     public static class ViewModelHelpers
     {
-        public static List<GamesViewModel> ToViewModel(this IEnumerable<Game> games)
+        public static IEnumerable<GamesViewModel> ToViewModel(this IEnumerable<Game> games)
         {
             var result = new List<GamesViewModel>();
 
