@@ -8,6 +8,6 @@ namespace Core.Domain
 
         public string Name { get; set; }
 
-        public ICollection<Player> Players { get; set; }
+        public virtual ICollection<Player> Players { get; set; }
     }
 }

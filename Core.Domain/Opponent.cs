@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public Address PlayingAddress { get; set; }
+        public virtual Address PlayingAddress { get; set; }
     }
 }

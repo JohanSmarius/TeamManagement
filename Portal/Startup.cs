@@ -27,7 +27,7 @@ namespace Portal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<GameDbContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("Default")));
+                Configuration.GetConnectionString("Default")).UseLazyLoadingProxies());
             
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<ICoachRepository, CoachRepository>();

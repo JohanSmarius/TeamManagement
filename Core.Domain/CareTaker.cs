@@ -19,7 +19,7 @@ namespace Core.Domain
 
         public bool HasPassedTrainingScoringTable { get; set; }
 
-        public Player Player { get; set; }
+        public virtual Player Player { get; set; }
         public int PlayerId { get; set; }
     }
 }

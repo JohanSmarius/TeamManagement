@@ -13,12 +13,12 @@ namespace Core.Domain
 
         public string EmailAddress { get; set; }
 
-        public Team Team { get; set; }
+        public virtual Team Team { get; set; }
         public int TeamId { get; set; }
 
-        public ICollection<PlayerGame> PlayerGames { get; set; }
+        public virtual ICollection<PlayerGame> PlayerGames { get; set; }
 
-        public ICollection<CareTaker> CareTakers { get; set; } = new List<CareTaker>();
+        public virtual ICollection<CareTaker> CareTakers { get; set; } = new List<CareTaker>();
 
         public override string ToString()
         {

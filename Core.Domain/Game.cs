@@ -49,21 +49,21 @@ namespace Core.Domain
         /// The primary coach for the game. Other coaches may assist,
         /// but are not kept track of in this system.
         /// </summary>
-        public Coach Coach { get; set; }
+        public virtual Coach Coach { get; set; }
 
         public int? CoachId { get; set; }
 
         /// <summary>
         /// For a given game only 12 players are allowed. The teams has 14 players at this time.
         /// </summary>
-        public ICollection<PlayerGame> PlayerGames { get; set; }
+        public virtual ICollection<PlayerGame> PlayerGames { get; set; }
         
-        public ICollection<CareTaker> Drivers { get; set; }
+        public virtual ICollection<CareTaker> Drivers { get; set; }
 
-        public CareTaker LaundryDuty { get; set; }
+        public virtual CareTaker LaundryDuty { get; set; }
         public int? LaundryDutyId { get; set; }
 
-        public Opponent Opponent { get; set; }
+        public virtual Opponent Opponent { get; set; }
         public int? OpponentId { get; set; }
 
         public Game(DateTime playTime, bool isHomeGame)

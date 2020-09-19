@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Domain;
 using Core.DomainServices;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace Infrastructure
 
         public IEnumerable<Player> GetPlayers()
         {
-            return _context.Players.Include(p => p.CareTakers);
+            return _context.Players.ToList();
         }
     }
 }

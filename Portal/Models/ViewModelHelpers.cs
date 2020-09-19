@@ -12,7 +12,7 @@ namespace Portal.Models
         {
             var result = new List<GamesViewModel>();
 
-            foreach (var game in games)
+            foreach (var game in games.ToList())
             {
                 result.Add(game.ToViewModel());
             }
