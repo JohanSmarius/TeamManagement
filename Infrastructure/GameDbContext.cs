@@ -41,8 +41,14 @@ namespace Infrastructure
             modelBuilder.Entity<PlayerGame>().HasOne(pg => pg.Game).WithMany(game => game.PlayerGames);
             modelBuilder.Entity<PlayerGame>().HasOne(pg => pg.Player).WithMany(player => player.PlayerGames);
 
+            modelBuilder.Entity<CareTaker>().HasData(
+                new CareTaker { Id = 1, Name = "Johan", HasCar = true, PlayerId =  1},
+                new CareTaker { Id = 2, Name = "Manuela", HasCar = true, PlayerId =  1},
+                new CareTaker { Id = 3, Name = "Inge", HasCar = false, PlayerId = 2}
+            );
+
             modelBuilder.Entity<Player>().HasData(
-                new Player {Id = 1, TeamId = 1, Name = "Agnes", PlayerNumber = 1},
+                new Player {Id = 1, TeamId = 1, Name = "Agnes", PlayerNumber = 10},
                 new Player {Id = 2, TeamId = 1, Name = "Linda", PlayerNumber = 2},
                 new Player {Id = 3, TeamId = 1, Name = "Debbie", PlayerNumber = 3},
                 new Player {Id = 4, TeamId = 1, Name = "Sena", PlayerNumber = 4}

@@ -107,7 +107,14 @@ namespace Portal.Controllers
                     gameToCreate.Opponent = new Opponent() { Name = newGame.Opponent };
                 }
 
+                gameToCreate.PlayerGames = new List<PlayerGame>();
+                foreach (var player in _playerRepository.GetPlayers())
+                {
+                    gameToCreate.PlayerGames.Add(new PlayerGame() { Game = gameToCreate, Player = player });
+                }
+
                 await _gameRepository.AddGame(gameToCreate);
+
 
                 return RedirectToAction("Index");
             }

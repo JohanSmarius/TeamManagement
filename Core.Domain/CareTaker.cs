@@ -18,5 +18,8 @@ namespace Core.Domain
         public bool HasCar { get; set; }
 
         public bool HasPassedTrainingScoringTable { get; set; }
+
+        public Player Player { get; set; }
+        public int PlayerId { get; set; }
     }
 }
