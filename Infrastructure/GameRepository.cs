@@ -18,13 +18,6 @@ namespace Infrastructure
             _context = context;
         }
 
-        public GameRepository()
-        {
-            
-        }
-
-        //public List<Game> Games { get; set; }
-
         public IEnumerable<Game> GetAll()
         {
             return Games;
