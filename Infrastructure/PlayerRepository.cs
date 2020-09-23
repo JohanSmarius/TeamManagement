@@ -17,7 +17,7 @@ namespace Infrastructure
 
         public IEnumerable<Player> GetPlayers()
         {
-            throw new NotImplementedException();
+            return _context.Players.Include(p => p.CareTakers);
         }
     }
 }
