@@ -20,7 +20,6 @@ namespace Portal
             {
                 user = new IdentityUser("Admin");
                 await userManager.CreateAsync(user, adminPassword);
-
                 await userManager.AddClaimAsync(user, new Claim("TeamManager", "true"));
             }
 

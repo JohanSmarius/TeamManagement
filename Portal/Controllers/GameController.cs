@@ -40,6 +40,7 @@ namespace Portal.Controllers
             return View(_gameRepository.GetAll().ToViewModel());
         }
 
+        [Authorize(Policy = "TeamManagerOnly")]
         [HttpGet]
         public IActionResult NewGame()
         {
@@ -60,6 +61,8 @@ namespace Portal.Controllers
             ViewBag.CareTakers = new SelectList(careTakers, "Id", "Name");
         }
 
+        [Authorize(Policy = "TeamManagerOnly")]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> NewGame(NewGameViewModel newGame)
         {

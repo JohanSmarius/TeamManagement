@@ -35,6 +35,9 @@ namespace Portal
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<SecurityDbContext>().AddDefaultTokenProviders();
 
+            services.AddAuthorization(options =>
+                options.AddPolicy("TeamManagerOnly", policy => policy.RequireClaim("TeamManager")));
+
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();

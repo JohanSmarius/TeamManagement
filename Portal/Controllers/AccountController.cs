@@ -62,5 +62,10 @@ namespace Portal.Controllers
             return Redirect(returnUrl);
         }
 
+        public async Task<IActionResult> AccessDenied(string returnUrl)
+        {
+            return View();
+        }
+
     }
 }
