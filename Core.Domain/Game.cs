@@ -66,6 +66,8 @@ namespace Core.Domain
         public Opponent Opponent { get; set; }
         public int? OpponentId { get; set; }
 
+        public Team Team { get; set; }
+
         public Game(DateTime playTime, bool isHomeGame)
         {
             IsHomeGame = isHomeGame;

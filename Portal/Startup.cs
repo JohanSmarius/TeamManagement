@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +43,7 @@ namespace Portal
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IOpponentRepository, OpponentRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
 
             services.AddControllersWithViews();
         }
@@ -72,6 +74,11 @@ namespace Portal
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
+                endpoints.MapControllerRoute(
+                    name: "game",
+                    pattern: "{controller=Game}/{action=List}/{team?}");
+
             });
         }
     }

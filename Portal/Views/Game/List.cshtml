@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Planning";
+}
+
+@model List<GamesViewModel>
+
+<h1 class="text-center alert-info">
+    Planning
+</h1>
+
+<div>
+    <a asp-action="NewGame" class="btn btn-primary">Add Game</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <th>Playtime</th>
+            <th>DepartureTime</th>
+            <th>Homegame</th>
+            <th>Coach</th>
+            <th>Washduty</th>
+            <th>Drivers</th>
+            <th>Opponent</th>
+        </thead>
+        <tbody>
+
+            @foreach (var game in @Model)
+            {
+                <partial model="game" name="_GameRow"/>
+                @*<tr>
+                    <td>@($"{@game.PlayTime:dd-MM-yyyy HH:mm}")</td>
+                    <td>@($"{@game.DepartureTime:HH:mm}")</td>
+                    <td>@game.IsHomeGame</td>
+                    <td>@(@game.Coach?.Name ?? "Coach missing")</td>
+                    <td>@(@game.LaundryDuty?.Name ?? "LaundryDuty missing")</td>
+                    <td>@game.Drivers</td>
+                    <td>@game.Opponent?.Name</td>
+                   
+                </tr>*@
+            }
+
+        </tbody>
+
+    </table>
+    
+
+
+    
+    
+
+</div>

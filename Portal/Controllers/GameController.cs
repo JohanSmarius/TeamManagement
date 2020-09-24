@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Portal.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Portal.Controllers
 {
@@ -38,6 +39,15 @@ namespace Portal.Controllers
         public IActionResult Index()
         {
             return View(_gameRepository.GetAll().ToViewModel());
+        }
+
+        [Authorize]
+        public IActionResult List(string team)
+        {
+            var model = _gameRepository.GetAll().Include(game => game.Team)
+                .Where(game => team == null || game.Team.Name == team).OrderByDescending(game => game.PlayTime).ToList().ToViewModel();
+
+            return View(model);
         }
 
         [Authorize(Policy = "TeamManagerOnly")]
