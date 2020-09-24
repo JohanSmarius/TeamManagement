@@ -16,7 +16,7 @@ using Xunit;
 
 namespace Portal.Tests
 {
-    public class HomeControllerTests
+    public class GameControllerTests
     {
         [Fact]
         public void Index_Should_Return_Index_View()
@@ -28,7 +28,7 @@ namespace Portal.Tests
             var playerRepoMock = new Mock<IPlayerRepository>();
             var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+            var sut = new GameController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
                 playerRepoMock.Object, opponentRepoMock.Object);
 
             gameRepoMock.Setup(gameRepo => gameRepo.GetAll()).Returns(new List<Game>()
@@ -56,7 +56,7 @@ namespace Portal.Tests
             var playerRepoMock = new Mock<IPlayerRepository>();
             var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+            var sut = new GameController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
                 playerRepoMock.Object, opponentRepoMock.Object);
 
             var date1 = DateTime.Today;
@@ -87,7 +87,7 @@ namespace Portal.Tests
             var playerRepoMock = new Mock<IPlayerRepository>();
             var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+            var sut = new GameController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
                 playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
@@ -123,7 +123,7 @@ namespace Portal.Tests
             var playerRepoMock = new Mock<IPlayerRepository>();
             var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+            var sut = new GameController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
                 playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
@@ -160,7 +160,7 @@ namespace Portal.Tests
             var playerRepoMock = new Mock<IPlayerRepository>();
             var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+            var sut = new GameController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
                 playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
@@ -199,7 +199,7 @@ namespace Portal.Tests
             var playerRepoMock = new Mock<IPlayerRepository>();
             var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+            var sut = new GameController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
                 playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
@@ -238,7 +238,7 @@ namespace Portal.Tests
             var playerRepoMock = new Mock<IPlayerRepository>();
             var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+            var sut = new GameController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
                 playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>
@@ -284,7 +284,7 @@ namespace Portal.Tests
             var playerRepoMock = new Mock<IPlayerRepository>();
             var opponentRepoMock = new Mock<IOpponentRepository>();
 
-            var sut = new HomeController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
+            var sut = new GameController(loggerMock.Object, gameRepoMock.Object, coachRepoMock.Object,
                 playerRepoMock.Object, opponentRepoMock.Object);
 
             coachRepoMock.Setup(coachRepo => coachRepo.GetCoaches()).Returns(new List<Coach>

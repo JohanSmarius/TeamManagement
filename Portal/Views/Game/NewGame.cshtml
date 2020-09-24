@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Add a new game";
+}
+<h1>@ViewData["Title"]</h1>
+
+@model NewGameViewModel
+
+<div>
+
+    <div asp-validation-summary="All"></div>
+
+    <div>
+        <form asp-action="NewGame" method="post">
+
+            <div class="form-group">
+                <label asp-for="PlayTime">Voer de speeldatum in:</label>
+                <input class="form-control" asp-for="PlayTime" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Opponent">Voer de tegenstander in:</label>
+                <input class="form-control" asp-for="Opponent" />
+                <span asp-validation-for="Opponent" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DepartureTime">Voer de vertrektijd in:</label>
+                <input class="form-control" asp-for="DepartureTime" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsHomeGame">Thuiswedstrijd?:</label>
+                <input class="form-control" asp-for="IsHomeGame" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CoachId">Coach:</label>
+                <select class="form-control" asp-for="CoachId" asp-items="@ViewBag.Coaches"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LaundryDutyId">Wasbeurt:</label>
+                <select class="form-control" asp-for="LaundryDutyId" asp-items="@ViewBag.CareTakers"></select>
+            </div>
+
+            <div class="form-group row">
+                <button class="btn btn-primary col-sm-4 text-center">Add game</button>
+            </div>
+        </form>
+    </div>
+</div>

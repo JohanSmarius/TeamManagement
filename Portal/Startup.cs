@@ -7,6 +7,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,12 @@ namespace Portal
         {
             services.AddDbContext<GameDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("Default")));
-            
+            services.AddDbContext<SecurityDbContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("Security")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<SecurityDbContext>().AddDefaultTokenProviders();
+
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
@@ -55,6 +61,7 @@ namespace Portal
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
