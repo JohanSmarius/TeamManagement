@@ -17,6 +17,20 @@ namespace Infrastructure
             _context = context;
         }
 
+        /// <summary>
+        /// Example of explicit loading
+        /// </summary>
+        public void PreLoad()
+        {
+            var firstGame = _context.Games.FirstOrDefault();
+
+            if (firstGame != null)
+            {
+                _context.Entry(firstGame).Collection(game => game.PlayerGames).Load();
+                _context.Entry(firstGame).Reference(game => game.Coach).Load();
+            }
+        }
+
         public IEnumerable<Game> GetAll()
         {
             return _context.Games.Include(g => g.Coach).Include(g => g.Opponent).Include(g => g.PlayerGames).ThenInclude(pg => pg.Player).ThenInclude(p => p.CareTakers);
