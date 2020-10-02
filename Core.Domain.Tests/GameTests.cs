@@ -1,6 +1,5 @@
 using System;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Core.Domain.Tests
 {

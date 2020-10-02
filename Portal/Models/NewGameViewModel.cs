@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Core.Domain;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Portal.Models
 {

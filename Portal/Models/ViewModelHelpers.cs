@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Text;
 using Core.Domain;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using Microsoft.Extensions.Primitives;
 
 namespace Portal.Models
 {

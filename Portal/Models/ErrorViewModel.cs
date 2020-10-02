@@ -1,5 +1,3 @@
-using System;
-
 namespace Portal.Models
 {
     public class ErrorViewModel

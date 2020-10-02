@@ -29,7 +29,6 @@ namespace Portal
                 player = new IdentityUser("Player");
                 await userManager.CreateAsync(player, playerPassword);
             }
-
         }
 
     }

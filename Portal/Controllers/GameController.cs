@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Domain;
@@ -35,7 +34,6 @@ namespace Portal.Controllers
             _opponentRepository = opponentRepository ?? throw new ArgumentNullException(nameof(opponentRepository));
         }
 
-        [Authorize]
         public IActionResult Index()
         {
             return View(_gameRepository.GetAll().ToViewModel());

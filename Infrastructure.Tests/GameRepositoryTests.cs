@@ -1,11 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Domain;
-using Xunit;
-
-using static Infrastructure.FilterExtensions;
-
 namespace Infrastructure.Tests
 {
     public class GameRepositoryTests
