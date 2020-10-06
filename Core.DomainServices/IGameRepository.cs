@@ -13,5 +13,9 @@ namespace Core.DomainServices
         IEnumerable<Game> GetAllExternalGames();
         IEnumerable<Game> Filter(Func<Game, bool> filterExpressie);
         Task AddGame(Game newGame);
+        IEnumerable<Game> GetAllGames();
+        Task<Game> GetById(int id);
+        Task Delete(Game game);
+        Task Update(Game game);
     }
 }
