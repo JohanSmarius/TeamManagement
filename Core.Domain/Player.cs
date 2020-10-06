@@ -19,6 +19,8 @@ namespace Core.Domain
 
         public ICollection<CareTaker> CareTakers { get; set; } = new List<CareTaker>();
 
+        public Gender Gender { get; set; }
+
         public override string ToString()
         {
             return $"{Name}-{PlayerNumber}";
