@@ -147,7 +147,7 @@ namespace TeamWebService.Controllers
 
             var resultToReturn = _mapper.Map<UpdatedGameDTO>(game);
             
-            return new OkObjectResult(resultToReturn);
+            return Ok(resultToReturn);
         }
     }
 }
