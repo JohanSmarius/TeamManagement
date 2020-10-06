@@ -56,8 +56,6 @@ namespace TeamWebService.Controllers
         {
             // No need to call ModelState.IsValid. It is checked
             // automatically because of the use of [ApiController]
-
-
             var gameToCreate = new Game(newGame.PlayTime, newGame.IsHomeGame);
 
             if (newGame.CoachId.HasValue)
