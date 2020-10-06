@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Core.Domain;
 using Core.DomainServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TeamWebService.Models;
@@ -40,15 +39,16 @@ namespace TeamWebService.Controllers
         }
 
         [HttpGet]
-        public List<Game> Get()
+        public ActionResult<List<Game>> Get()
         {
-            return _gameRepository.GetAllGames().ToList();
+            return Ok(_gameRepository.GetAllGames().ToList());
         }
 
         [HttpGet("{id}")]
-        public async Task<Game> Get(int id)
+        public async Task<ActionResult<Game>> Get(int id)
         {
-            return await _gameRepository.GetById(id);
+            var result = await _gameRepository.GetById(id);
+            return Ok(result);
         }
 
         [HttpPost]
