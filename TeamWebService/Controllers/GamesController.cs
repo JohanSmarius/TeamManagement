@@ -44,6 +44,27 @@ namespace TeamWebService.Controllers
             return Ok(_gameRepository.GetAllGames().ToList());
         }
 
+        #region AddedFilters
+        //[HttpGet]
+        //public ActionResult<List<Game>> Get([FromQuery] SelectParameters parameters)
+        //{
+        //    var result = _gameRepository.GetAll();
+
+        //    if (parameters.PageNumber.HasValue)
+        //    {
+        //        result = result.Skip(parameters.PageNumber.Value);
+        //    }
+
+        //    if (parameters.PageSize.HasValue)
+        //    {
+        //        result = result.Take(parameters.PageSize.Value);
+        //    }
+
+        //    return Ok(result.ToList());
+        //}
+#endregion
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> Get(int id)
         {
