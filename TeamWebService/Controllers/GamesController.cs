@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Core.Domain;
 using Core.DomainServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TeamWebService.Models;
@@ -112,7 +113,13 @@ namespace TeamWebService.Controllers
             return CreatedAtAction(nameof(Get), new {id = createdResource.Id}, createdResource);
         }
 
+        /// <summary>
+        /// Delete a single game.
+        /// </summary>
+        /// <param name="id">The id of the game to delete</param>
+        /// <response code="204">The item has been deleted</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> DeleteGame(int id)
         {
             var game = await _gameRepository.GetById(id);
