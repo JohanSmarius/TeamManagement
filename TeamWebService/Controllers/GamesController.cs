@@ -38,31 +38,31 @@ namespace TeamWebService.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        [HttpGet]
-        public ActionResult<List<Game>> Get()
-        {
-            return Ok(_gameRepository.GetAllGames().ToList());
-        }
+        //[HttpGet]
+        //public ActionResult<List<Game>> Get()
+        //{
+        //    return Ok(_gameRepository.GetAllGames().ToList());
+        //}
 
         #region AddedFilters
-        //[HttpGet]
-        //public ActionResult<List<Game>> Get([FromQuery] SelectParameters parameters)
-        //{
-        //    var result = _gameRepository.GetAll();
+        [HttpGet]
+        public ActionResult<List<Game>> Get([FromQuery] SelectParameters parameters)
+        {
+            var result = _gameRepository.GetAll();
 
-        //    if (parameters.PageNumber.HasValue)
-        //    {
-        //        result = result.Skip(parameters.PageNumber.Value);
-        //    }
+            if (parameters.PageNumber.HasValue)
+            {
+                result = result.Skip(parameters.PageNumber.Value);
+            }
 
-        //    if (parameters.PageSize.HasValue)
-        //    {
-        //        result = result.Take(parameters.PageSize.Value);
-        //    }
+            if (parameters.PageSize.HasValue)
+            {
+                result = result.Take(parameters.PageSize.Value);
+            }
 
-        //    return Ok(result.ToList());
-        //}
-#endregion
+            return Ok(result.ToList());
+        }
+        #endregion
 
 
         [HttpGet("{id}")]

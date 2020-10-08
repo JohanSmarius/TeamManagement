@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.DomainServices", "Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal.Tests", "Portal.Tests\Portal.Tests.csproj", "{E5497D47-D70E-47F1-AB99-EF3284E03417}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamWebService", "TeamWebService\TeamWebService.csproj", "{51249CAE-73C2-46F6-8AE0-39AD878D44CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamWebService", "TeamWebService\TeamWebService.csproj", "{51249CAE-73C2-46F6-8AE0-39AD878D44CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
