@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class full : Migration
+    public partial class NewInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,9 +11,9 @@ namespace Infrastructure.Migrations
                 name: "Coaches",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -24,12 +24,12 @@ namespace Infrastructure.Migrations
                 name: "Opponents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    PlayingAddress_Street = table.Column<string>(nullable: true),
-                    PlayingAddress_Number = table.Column<int>(nullable: true),
-                    PlayingAddress_Extension = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PlayingAddress_Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlayingAddress_Number = table.Column<int>(type: "int", nullable: true),
+                    PlayingAddress_Extension = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,9 +40,9 @@ namespace Infrastructure.Migrations
                 name: "Teams",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -53,12 +53,13 @@ namespace Infrastructure.Migrations
                 name: "Players",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    PlayerNumber = table.Column<int>(nullable: false),
-                    EmailAddress = table.Column<string>(nullable: true),
-                    TeamId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlayerNumber = table.Column<int>(type: "int", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,14 +76,15 @@ namespace Infrastructure.Migrations
                 name: "Games",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PlayTime = table.Column<DateTime>(nullable: false),
-                    DepartureTime = table.Column<DateTime>(nullable: true),
-                    IsHomeGame = table.Column<bool>(nullable: false),
-                    CoachId = table.Column<int>(nullable: true),
-                    LaundryDutyId = table.Column<int>(nullable: true),
-                    OpponentId = table.Column<int>(nullable: true)
+                    PlayTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsHomeGame = table.Column<bool>(type: "bit", nullable: false),
+                    CoachId = table.Column<int>(type: "int", nullable: true),
+                    LaundryDutyId = table.Column<int>(type: "int", nullable: true),
+                    OpponentId = table.Column<int>(type: "int", nullable: true),
+                    TeamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,21 +101,27 @@ namespace Infrastructure.Migrations
                         principalTable: "Opponents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Games_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CareTakers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    EMailAddress = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<int>(nullable: false),
-                    HasCar = table.Column<bool>(nullable: false),
-                    HasPassedTrainingScoringTable = table.Column<bool>(nullable: false),
-                    PlayerId = table.Column<int>(nullable: false),
-                    GameId = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EMailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
+                    HasCar = table.Column<bool>(type: "bit", nullable: false),
+                    HasPassedTrainingScoringTable = table.Column<bool>(type: "bit", nullable: false),
+                    PlayerId = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -136,8 +144,8 @@ namespace Infrastructure.Migrations
                 name: "PlayerGames",
                 columns: table => new
                 {
-                    PlayerID = table.Column<int>(nullable: false),
-                    GameID = table.Column<int>(nullable: false)
+                    PlayerID = table.Column<int>(type: "int", nullable: false),
+                    GameID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,13 +181,13 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Players",
-                columns: new[] { "Id", "EmailAddress", "Name", "PlayerNumber", "TeamId" },
+                columns: new[] { "Id", "EmailAddress", "Gender", "Name", "PlayerNumber", "TeamId" },
                 values: new object[,]
                 {
-                    { 1, null, "Agnes", 10, 1 },
-                    { 2, null, "Linda", 2, 1 },
-                    { 3, null, "Debbie", 3, 1 },
-                    { 4, null, "Sena", 4, 1 }
+                    { 1, null, 0, "Agnes", 10, 1 },
+                    { 2, null, 0, "Linda", 2, 1 },
+                    { 3, null, 0, "Debbie", 3, 1 },
+                    { 4, null, 0, "Sena", 4, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -223,6 +231,11 @@ namespace Infrastructure.Migrations
                 column: "OpponentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Games_TeamId",
+                table: "Games",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Opponents_Name",
                 table: "Opponents",
                 column: "Name",
@@ -261,10 +274,10 @@ namespace Infrastructure.Migrations
                 name: "Games");
 
             migrationBuilder.DropTable(
-                name: "Coaches");
+                name: "CareTakers");
 
             migrationBuilder.DropTable(
-                name: "CareTakers");
+                name: "Coaches");
 
             migrationBuilder.DropTable(
                 name: "Opponents");
