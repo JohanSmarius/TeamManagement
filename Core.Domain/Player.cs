@@ -15,7 +15,7 @@ namespace Core.Domain
         public Team Team { get; set; }
         public int TeamId { get; set; }
 
-        public ICollection<PlayerGame> PlayerGames { get; set; }
+        public ICollection<Game> Games { get; set; }
 
         public ICollection<CareTaker> CareTakers { get; set; } = new List<CareTaker>();
 
