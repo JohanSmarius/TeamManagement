@@ -31,6 +31,11 @@ namespace Infrastructure
             }
         }
 
+        public IEnumerable<Game> GetAllGames()
+        {
+            return _context.Games;
+        }
+
         public IQueryable<Game> GetAll()
         {
             return _context.Games.Include(g => g.Coach).Include(g => g.Opponent).
@@ -64,7 +69,25 @@ namespace Infrastructure
 
         public async Task AddGame(Game newGame)
         {
-            _context.Games.Add(newGame);
+            await _context.Games.AddAsync(newGame);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Game> GetById(int id)
+        {
+            return await _context.Games.SingleOrDefaultAsync(game => game.Id == id);
+        }
+
+        public async Task Delete(Game game)
+        {
+            if (game == null) throw new ArgumentNullException(nameof(game));
+
+            _context.Games.Remove(game);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Game game)
+        {
             await _context.SaveChangesAsync();
         }
     }

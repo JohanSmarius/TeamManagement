@@ -1,14 +1,17 @@
+using System;
+using System.IO;
+using System.Reflection;
+using AutoMapper;
 using Core.DomainServices;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Portal
+namespace TeamWebService
 {
     public class Startup
     {
@@ -24,22 +27,20 @@ namespace Portal
         {
             services.AddDbContext<GameDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("Default")));
-            services.AddDbContext<SecurityDbContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("Security")));
-
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<SecurityDbContext>().AddDefaultTokenProviders();
-
-            services.AddAuthorization(options =>
-                options.AddPolicy("TeamManagerOnly", policy => policy.RequireClaim("TeamManager")));
-
+            
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IOpponentRepository, OpponentRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
 
-            services.AddControllersWithViews();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddControllers();
+
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            services.AddSwaggerGen(options => options.IncludeXmlComments(xmlPath));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,30 +50,19 @@ namespace Portal
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Team Management API V1"));
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                
-                endpoints.MapControllerRoute(
-                    name: "game",
-                    pattern: "{controller=Game}/{action=List}/{team?}");
-
+                endpoints.MapControllers();
             });
         }
     }

@@ -18,5 +18,6 @@ namespace Infrastructure
         {
             return _context.Teams;
         }
+
     }
 }
