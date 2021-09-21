@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    [Migration("20201002150944_AddGender")]
-    partial class AddGender
+    [Migration("20210211204705_NewInitial")]
+    partial class NewInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Core.Domain.CareTaker", b =>
@@ -285,6 +285,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("Core.Domain.Game", b =>
@@ -304,6 +306,14 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Domain.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId");
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("LaundryDuty");
+
+                    b.Navigation("Opponent");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Core.Domain.Opponent", b =>
@@ -331,6 +341,8 @@ namespace Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("OpponentId");
                         });
+
+                    b.Navigation("PlayingAddress");
                 });
 
             modelBuilder.Entity("Core.Domain.Player", b =>
@@ -340,6 +352,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Core.Domain.PlayerGame", b =>
@@ -355,6 +369,29 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("PlayerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("Core.Domain.Game", b =>
+                {
+                    b.Navigation("Drivers");
+
+                    b.Navigation("PlayerGames");
+                });
+
+            modelBuilder.Entity("Core.Domain.Player", b =>
+                {
+                    b.Navigation("CareTakers");
+
+                    b.Navigation("PlayerGames");
+                });
+
+            modelBuilder.Entity("Core.Domain.Team", b =>
+                {
+                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }

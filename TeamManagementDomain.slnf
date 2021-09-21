@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "path": "TeamManagement.sln",
+    "projects": [
+      "Core.Domain.Tests\\Core.Domain.Tests.csproj",
+      "Core.DomainServices\\Core.DomainServices.csproj",
+      "Core.Domain\\Core.Domain.csproj"
+    ]
+  }
+}

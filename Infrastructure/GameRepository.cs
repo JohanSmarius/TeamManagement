@@ -26,7 +26,7 @@ namespace Infrastructure
 
             if (firstGame != null)
             {
-                _context.Entry(firstGame).Collection(game => game.PlayerGames).Load();
+                _context.Entry(firstGame).Collection(game => game.Players).Load();
                 _context.Entry(firstGame).Reference(game => game.Coach).Load();
             }
         }
@@ -38,11 +38,8 @@ namespace Infrastructure
 
         public IQueryable<Game> GetAll()
         {
-            return _context.Games.Include(g => g.Coach).
-                Include(g => g.Opponent).
-                Include(g => g.PlayerGames).
-                ThenInclude(pg => pg.Player).
-                ThenInclude(p => p.CareTakers);
+            return _context.Games.Include(g => g.Coach).Include(g => g.Opponent).
+                Include(g => g.Players).ThenInclude(p => p.CareTakers);
         }
 
         public IEnumerable<Game> GetAllHomeGames()

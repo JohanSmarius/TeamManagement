@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    [Migration("20200923125337_full")]
-    partial class full
+    [Migration("20210918131346_Removed JoinEntity")]
+    partial class RemovedJoinEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Core.Domain.CareTaker", b =>
@@ -139,6 +139,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("PlayTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CoachId");
@@ -146,6 +149,8 @@ namespace Infrastructure.Migrations
                     b.HasIndex("LaundryDutyId");
 
                     b.HasIndex("OpponentId");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Games");
                 });
@@ -179,6 +184,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -198,6 +206,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
+                            Gender = 0,
                             Name = "Agnes",
                             PlayerNumber = 10,
                             TeamId = 1
@@ -205,6 +214,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
+                            Gender = 0,
                             Name = "Linda",
                             PlayerNumber = 2,
                             TeamId = 1
@@ -212,6 +222,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
+                            Gender = 0,
                             Name = "Debbie",
                             PlayerNumber = 3,
                             TeamId = 1
@@ -219,25 +230,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
+                            Gender = 0,
                             Name = "Sena",
                             PlayerNumber = 4,
                             TeamId = 1
                         });
-                });
-
-            modelBuilder.Entity("Core.Domain.PlayerGame", b =>
-                {
-                    b.Property<int>("PlayerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GameID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayerID", "GameID");
-
-                    b.HasIndex("GameID");
-
-                    b.ToTable("PlayerGames");
                 });
 
             modelBuilder.Entity("Core.Domain.Team", b =>
@@ -262,6 +259,21 @@ namespace Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("GamePlayer", b =>
+                {
+                    b.Property<int>("GamesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GamesId", "PlayersId");
+
+                    b.HasIndex("PlayersId");
+
+                    b.ToTable("GamePlayer");
+                });
+
             modelBuilder.Entity("Core.Domain.CareTaker", b =>
                 {
                     b.HasOne("Core.Domain.Game", null)
@@ -273,6 +285,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("Core.Domain.Game", b =>
@@ -288,6 +302,18 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Domain.Opponent", "Opponent")
                         .WithMany()
                         .HasForeignKey("OpponentId");
+
+                    b.HasOne("Core.Domain.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId");
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("LaundryDuty");
+
+                    b.Navigation("Opponent");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Core.Domain.Opponent", b =>
@@ -315,6 +341,8 @@ namespace Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("OpponentId");
                         });
+
+                    b.Navigation("PlayingAddress");
                 });
 
             modelBuilder.Entity("Core.Domain.Player", b =>
@@ -324,21 +352,38 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("Core.Domain.PlayerGame", b =>
+            modelBuilder.Entity("GamePlayer", b =>
                 {
-                    b.HasOne("Core.Domain.Game", "Game")
-                        .WithMany("PlayerGames")
-                        .HasForeignKey("GameID")
+                    b.HasOne("Core.Domain.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Domain.Player", "Player")
-                        .WithMany("PlayerGames")
-                        .HasForeignKey("PlayerID")
+                    b.HasOne("Core.Domain.Player", null)
+                        .WithMany()
+                        .HasForeignKey("PlayersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Domain.Game", b =>
+                {
+                    b.Navigation("Drivers");
+                });
+
+            modelBuilder.Entity("Core.Domain.Player", b =>
+                {
+                    b.Navigation("CareTakers");
+                });
+
+            modelBuilder.Entity("Core.Domain.Team", b =>
+                {
+                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }

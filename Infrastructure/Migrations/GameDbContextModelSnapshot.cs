@@ -13,8 +13,8 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Core.Domain.CareTaker", b =>
@@ -233,21 +233,6 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Core.Domain.PlayerGame", b =>
-                {
-                    b.Property<int>("PlayerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GameID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayerID", "GameID");
-
-                    b.HasIndex("GameID");
-
-                    b.ToTable("PlayerGames");
-                });
-
             modelBuilder.Entity("Core.Domain.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -270,6 +255,21 @@ namespace Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("GamePlayer", b =>
+                {
+                    b.Property<int>("GamesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GamesId", "PlayersId");
+
+                    b.HasIndex("PlayersId");
+
+                    b.ToTable("GamePlayer");
+                });
+
             modelBuilder.Entity("Core.Domain.CareTaker", b =>
                 {
                     b.HasOne("Core.Domain.Game", null)
@@ -281,6 +281,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("Core.Domain.Game", b =>
@@ -300,6 +302,14 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Domain.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId");
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("LaundryDuty");
+
+                    b.Navigation("Opponent");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("Core.Domain.Opponent", b =>
@@ -327,6 +337,8 @@ namespace Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("OpponentId");
                         });
+
+                    b.Navigation("PlayingAddress");
                 });
 
             modelBuilder.Entity("Core.Domain.Player", b =>
@@ -336,21 +348,38 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("Core.Domain.PlayerGame", b =>
+            modelBuilder.Entity("GamePlayer", b =>
                 {
-                    b.HasOne("Core.Domain.Game", "Game")
-                        .WithMany("PlayerGames")
-                        .HasForeignKey("GameID")
+                    b.HasOne("Core.Domain.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Domain.Player", "Player")
-                        .WithMany("PlayerGames")
-                        .HasForeignKey("PlayerID")
+                    b.HasOne("Core.Domain.Player", null)
+                        .WithMany()
+                        .HasForeignKey("PlayersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Domain.Game", b =>
+                {
+                    b.Navigation("Drivers");
+                });
+
+            modelBuilder.Entity("Core.Domain.Player", b =>
+                {
+                    b.Navigation("CareTakers");
+                });
+
+            modelBuilder.Entity("Core.Domain.Team", b =>
+                {
+                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }
