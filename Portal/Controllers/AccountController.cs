@@ -1,68 +1,66 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Portal.Models;
 
-namespace Portal.Controllers
+namespace Portal.Controllers;
+
+public class AccountController : Controller
 {
-    public class AccountController : Controller
+    private readonly UserManager<IdentityUser> userManager;
+    private readonly SignInManager<IdentityUser> signInManager;
+
+    public AccountController(UserManager<IdentityUser> userMgr,
+        SignInManager<IdentityUser> signInMgr)
     {
-        private UserManager<IdentityUser> userManager;
-        private SignInManager<IdentityUser> signInManager;
+        userManager = userMgr;
+        signInManager = signInMgr;
 
-        public AccountController(UserManager<IdentityUser> userMgr,
-            SignInManager<IdentityUser> signInMgr)
+        IdentitySeedData.EnsurePopulated(userMgr).Wait();
+    }
+
+    [AllowAnonymous]
+    public IActionResult Login(string returnUrl)
+    {
+        return View(new LoginModel
         {
-            userManager = userMgr;
-            signInManager = signInMgr;
+            ReturnUrl = returnUrl
+        });
+    }
 
-            IdentitySeedData.EnsurePopulated(userMgr).Wait();
-        }
-
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(LoginModel loginModel)
+    {
+        if (ModelState.IsValid)
         {
-            return View(new LoginModel
+            var user =
+                await userManager.FindByNameAsync(loginModel.Name);
+            if (user != null)
             {
-                ReturnUrl = returnUrl
-            });
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel loginModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var user =
-                    await userManager.FindByNameAsync(loginModel.Name);
-                if (user != null)
+                await signInManager.SignOutAsync();
+                if ((await signInManager.PasswordSignInAsync(user,
+                    loginModel.Password, false, false)).Succeeded)
                 {
-                    await signInManager.SignOutAsync();
-                    if ((await signInManager.PasswordSignInAsync(user,
-                        loginModel.Password, false, false)).Succeeded)
-                    {
-                        return Redirect(loginModel?.ReturnUrl ?? "/Game/Index");
-                    }
+                    return Redirect(loginModel?.ReturnUrl ?? "/Game/Index");
                 }
             }
-
-            ModelState.AddModelError("", "Invalid name or password");
-            return View(loginModel);
         }
 
-        public async Task<RedirectResult> Logout(string returnUrl = "/")
-        {
-            await signInManager.SignOutAsync();
-            return Redirect(returnUrl);
-        }
-
-        public async Task<IActionResult> AccessDenied(string returnUrl)
-        {
-            return View();
-        }
-
+        ModelState.AddModelError("", "Invalid name or password");
+        return View(loginModel);
     }
+
+    public async Task<RedirectResult> Logout(string returnUrl = "/")
+    {
+        await signInManager.SignOutAsync();
+        return Redirect(returnUrl);
+    }
+
+    public async Task<IActionResult> AccessDenied(string returnUrl)
+    {
+        return View();
+    }
+
 }

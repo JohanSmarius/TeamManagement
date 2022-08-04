@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Core.Domain;
 
-namespace Core.DomainServices
+namespace Core.DomainServices;
+
+public interface ITeamRepository
 {
-    public interface ITeamRepository
-    {
-        IEnumerable<Team> GetTeams();
-    }
+    IEnumerable<Team> GetTeams();
 }

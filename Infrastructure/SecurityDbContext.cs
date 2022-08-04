@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure
+namespace Infrastructure;
+
+public class SecurityDbContext : IdentityDbContext
 {
-    public class SecurityDbContext : IdentityDbContext
+    public SecurityDbContext(DbContextOptions<SecurityDbContext> options) : base(options)
     {
-        public SecurityDbContext(DbContextOptions<SecurityDbContext> options) : base(options)
-        {
-            
-        }
         
     }
+    
 }

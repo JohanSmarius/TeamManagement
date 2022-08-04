@@ -3,20 +3,19 @@ using Core.Domain;
 using Core.DomainServices;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure
+namespace Infrastructure;
+
+public class PlayerRepository : IPlayerRepository
 {
-    public class PlayerRepository : IPlayerRepository
+    private readonly GameDbContext _context;
+
+    public PlayerRepository(GameDbContext context)
     {
-        private readonly GameDbContext _context;
+        _context = context;
+    }
 
-        public PlayerRepository(GameDbContext context)
-        {
-            _context = context;
-        }
-
-        public IEnumerable<Player> GetPlayers()
-        {
-            return _context.Players.Include(p => p.CareTakers);
-        }
+    public IEnumerable<Player> GetPlayers()
+    {
+        return _context.Players.Include(p => p.CareTakers);
     }
 }
