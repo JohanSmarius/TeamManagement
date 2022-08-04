@@ -1,8 +1,7 @@
-﻿namespace Core.Domain
+﻿namespace Core.Domain;
+
+public class Coach
 {
-    public class Coach
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
 }

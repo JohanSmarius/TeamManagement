@@ -1,11 +1,10 @@
-﻿namespace Core.Domain
+﻿namespace Core.Domain;
+
+public class Opponent
 {
-    public class Opponent
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public Address PlayingAddress { get; set; }
-    }
+    public Address PlayingAddress { get; set; }
 }

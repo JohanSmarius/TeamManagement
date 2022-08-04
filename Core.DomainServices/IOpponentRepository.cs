@@ -1,7 +1,6 @@
-﻿namespace Core.DomainServices
+﻿namespace Core.DomainServices;
+
+public interface IOpponentRepository
 {
-    public interface IOpponentRepository
-    {
-  
-    }
+
 }

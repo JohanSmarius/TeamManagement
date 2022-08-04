@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Core.Domain;
 
-namespace Core.DomainServices
+namespace Core.DomainServices;
+
+public interface IPlayerRepository
 {
-    public interface IPlayerRepository
-    {
-        IEnumerable<Player> GetPlayers();
-    }
+    IEnumerable<Player> GetPlayers();
 }

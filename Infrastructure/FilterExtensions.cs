@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using Core.Domain;
 
-namespace Infrastructure
+namespace Infrastructure;
+
+public static class FilterExtensions
 {
-    public static class FilterExtensions
+    public static IEnumerable<Game> FilterGames(this IEnumerable<Game> games, Func<Game, bool> filterExpressie)
     {
-        public static IEnumerable<Game> FilterGames(this IEnumerable<Game> games, Func<Game, bool> filterExpressie)
+        foreach (var game in games)
         {
-            foreach (var game in games)
+            if (filterExpressie(game))
             {
-                if (filterExpressie(game))
-                {
-                    yield return game;
-                }
+                yield return game;
             }
         }
     }
