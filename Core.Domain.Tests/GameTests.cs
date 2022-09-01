@@ -15,7 +15,7 @@ namespace Core.Domain.Tests
             var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), false);
 
             // Act
-            var coach = game.Coach?.Name ?? emptyCoach;
+            var coach = game.Coach.Name;
 
             // Assert
             Assert.True(string.CompareOrdinal(coach, emptyCoach) == 0);
@@ -25,10 +25,7 @@ namespace Core.Domain.Tests
         public void Given_Coach_AssignedToGame_Should_Return_Coach_Name()
         {
             // Arrange
-            var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), false)
-            {
-                Coach = new Coach { Name = "Tim" }
-            };;
+            var game = new Game(new DateTime(2020, 09, 06, 14, 30, 00), false);
 
             // Act
             var coach = game.Coach.Name;

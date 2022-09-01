@@ -14,36 +14,21 @@ namespace Core.Domain
         /// </summary>
         public DateTime PlayTime { get; set; }
 
-        private DateTime? _departureTime;
-        
+               
         /// <summary>
         /// Only necessary for not home games.
         /// Only the time part is relevant. The date part should always be
         /// the same as the playtime.
         /// </summary>
-        public DateTime? DepartureTime 
+        public DateTime? DepartureTime
         {
-            get 
-            {
-                return _departureTime;
-            }
-            set
-            {
-                if (!IsHomeGame)
-                {
-                    _departureTime = value;
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
-            }
+            get; set;
         }
 
         /// <summary>
         /// Home game?
         /// </summary>
-        public bool IsHomeGame { get;  }
+        public bool IsHomeGame { get; set; }
 
         /// <summary>
         /// The primary coach for the game. Other coaches may assist,
